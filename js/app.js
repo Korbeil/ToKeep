@@ -2,21 +2,20 @@
 
 /* App Module */
 
-var pizzaApp = angular.module('pizzaApp', [
+var keepApp = angular.module('keepApp', [
   'ngRoute',
 
-  'pizzaController',
-  'pizzaFilters'
+  'keepController'
 ]);
 
-pizzaApp.config(['$routeProvider',
+keepApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/pizzas', {
-        templateUrl: 'partials/pizza-list.html',
-        controller: 'PizzaListCtrl'
+      when('/keep', {
+        templateUrl: 'partials/keep-list.html',
+        controller: 'KeepListCtrl'
       }).
       otherwise({
-        redirectTo: '/pizzas'
+        redirectTo: '/keep'
       });
   }]);

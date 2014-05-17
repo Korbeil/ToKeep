@@ -2,9 +2,9 @@
 
 /* Controllers */
 
-var pizzaController = angular.module('pizzaController', []);
+var keepController = angular.module('keepController', []);
 
-pizzaController.controller('PizzaListCtrl', ['$scope', '$http',
+keepController.controller('KeepListCtrl', ['$scope', '$http',
   function($scope, $http) {
     $http.get('/js/pizzas-cat.json').success(function(data) {
       $scope.cats = data;
