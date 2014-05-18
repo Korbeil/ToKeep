@@ -3,9 +3,9 @@
 /* App Module */
 
 var keepApp = angular.module('keepApp', [
-  'ngRoute',
-
-  'keepController'
+    'ngRoute',
+    'keepFilters',
+    'keepController'
 ]);
 
 keepApp.config(['$routeProvider',

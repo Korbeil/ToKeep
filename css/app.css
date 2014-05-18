@@ -85,3 +85,13 @@ mine
 #searchBox {
     padding-bottom: 0px;
 }
+.element .right-corner {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 10px 7px;
+}
+#add-desc {
+    resize: vertical;
+}
+

@@ -1,13 +1,9 @@
 <div class="container">
     <div class="header">
-        <!--
         <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a data-toggle="modal" data-target="#add">Add</a></li>
         </ul>
-        -->
-        <h3 class="text-muted">ToKeep</h3>
+        <h3 class="text-muted">Something to keep ?</h3>
     </div>
 
     <div id="searchBox" class="well">
@@ -15,19 +11,25 @@
             <div class="form-group">
                 <label for="inputSearch" class="col-sm-2 control-label">Search</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputSearch" name="inputSearch" placeholder="Something to search">
+                    <input type="text" class="form-control" id="inputSearch" name="inputSearch" ng-model="search" placeholder="Something to search">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputLang" class="col-sm-2 control-label">Language</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="inputLang" name="inputLang" ng-model="lang"></select>
                 </div>
             </div>
             <div class="form-group">
                 <label for="selectTags" class="col-sm-2 control-label">Tags</label>
                 <div class="col-sm-10">
-                    <select class="form-control" id="selectTags" name="selectTags"></select>
-                    <span class="help-block">Add tags to help your search</span>
+                    <select class="form-control" id="selectTags" name="selectTags" ng-model="tags"></select>
                 </div>
             </div>
         </form>
     </div>
 
+<!--
     <div class="row marketing">
         <div class="col-lg-6">
             <h4>Subheading</h4>
@@ -51,9 +53,218 @@
             <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
         </div>
     </div>
+-->
+
+    <div class="row marketing">
+        <div class="element col-lg-6" ng-repeat="keep in keeplist | filter:search | tag:tags | language:lang">
+            <div class="right-corner">
+                <a data-toggle="modal" data-target="#edit_{{ $index }}"><i class="fa fa-edit"></i></a>
+            </div>
+
+            <h4><a target="_blank" href="{{ keep.url }}">{{ keep.title }}</a></h4>
+            <p>{{ keep.description }}</p>
+        </div>
+    </div>
 
     <div class="footer">
         <p>© panda_</p>
     </div>
 
 </div>
+
+<!-- Modal `Add` -->
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="editLabel">Adding something to keep</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="add-title" class="col-sm-2 control-label">Title</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="add-title" name="add-title" ng-model="add_title" placeholder="Title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-url" class="col-sm-2 control-label">URL</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="add-url" name="add-url" ng-model="add_url" placeholder="http://www.google.fr">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-lang" class="col-sm-2 control-label">Lang</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="add-lang" name="add-lang" ng-model="add_lang" placeholder="javascript">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-desc" class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="add-desc" name="add-desc" ng-model="add_desc"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-tag" class="col-sm-2 control-label">Tags</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="add-tag" name="add-tag" ng-model="add_tag"></select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="clearModal(this);" ng-click="addSomethingToKeep(add_title, add_url, add_lang, add_desc, add_tag)">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal `edit_xxx` -->
+<div class="modal fade" id="edit_{{ $index }}" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true"  ng-repeat="keep in keeplist | filter:search | tag:tags">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="editLabel">Editing `{{ keep.title }}`</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="add-title" class="col-sm-2 control-label">Title</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-title" name="edit-title" ng-model="keep.title" placeholder="Title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-url" class="col-sm-2 control-label">URL</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-url" name="edit-url" ng-model="keep.url" placeholder="http://www.google.fr">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-lang" class="col-sm-2 control-label">Lang</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-lang" name="edit-lang" ng-model="keep.language" placeholder="javascript">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-desc" class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="edit-desc" name="edit-desc" ng-model="keep.description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-tag" class="col-sm-2 control-label">Tags</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" class="edit-select" id="edit-tag-{{ $index }}" name="edit-tag" ng-model="keep.tags"></select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="clearModal(this);" ng-click="savingData()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="data" class="hidden">
+    <div id="keeplist">{{ keeplist }}</div>
+    <div id="taglist">{{ taglist }}</div>
+    <div id="langlist">{{ langlist }}</div>
+</div>
+
+<script>
+    function init() {
+        var data = $('#data');
+        var taglist = JSON.parse(data.find('#taglist').text());
+        var langlist = JSON.parse(data.find('#langlist').text());
+        var keeplist = JSON.parse(data.find('#keeplist').text());
+
+        $('#selectTags').selectize({
+            plugins: ['remove_button'],
+            persist: false,
+            maxItems: null,
+            valueField: 'name',
+            labelField: 'name',
+            sortField: 'name',
+            options: taglist
+        });
+
+        $('#inputLang').selectize({
+            plugins: ['remove_button'],
+            persist: false,
+            maxItems: 1,
+            valueField: 'name',
+            labelField: 'name',
+            sortField: 'name',
+            options: toSelectize(langlist)
+        });
+
+        $('#add-tag').selectize({
+            plugins: ['remove_button'],
+            create: function(input) {
+                return {
+                    name: input
+                }
+            },
+            maxItems: null,
+            valueField: 'name',
+            labelField: 'name',
+            sortField: 'name',
+            options: taglist
+        });
+
+        for(var i in keeplist) {
+            var keep = keeplist[i];
+            var el = $('#edit-tag-'+i);
+            var instance = el[0].selectize;
+
+            el.selectize({
+                plugins: ['remove_button'],
+                create: function(input) {
+                    return {
+                        name: input
+                    }
+                },
+                maxItems: null,
+                valueField: 'name',
+                labelField: 'name',
+                sortField: 'name',
+                options: taglist
+            });
+
+            for(var j in keep.tags) {
+                var tag = keep.tags[j];
+                if(instance !== undefined) {
+                    instance.addItem(tag);
+                }
+            }
+            if(instance !== undefined) {
+                instance.refreshItems();
+            }
+        }
+    }
+
+    // to refresh taglist, i need to reload the init function
+    setInterval( init, 1000*1);
+
+    function toSelectize(data) {
+        var r = [];
+        for(var i in data) {
+            var current = data[i];
+            r.push({
+               name: current
+            });
+        }
+        return r;
+    }
+
+    function clearModal(el) {
+        $(el).closest('div.modal.fade').modal('hide');
+    }
+</script>

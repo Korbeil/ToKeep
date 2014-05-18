@@ -1,0 +1,32 @@
+[
+    {
+        "title":"selectize.js",
+        "url":"http://brianreavis.github.io/selectize.js/",
+        "language":"javascript",
+        "description":"Selectize is the hybrid of a textbox and <select> box. It's jQuery-based and it's useful for tagging, contact lists, country selectors, and so on.",
+        "tags":[
+            "jQuery",
+            "select",
+            "tokenInput"
+        ]
+    },
+    {
+        "title":"jobby",
+        "url":"https://github.com/hellogerard/jobby",
+        "language":"php",
+        "description":"Jobby is a PHP cron job manager. Install the master jobby cron job, and it will manage all your offline tasks. Add jobs without modifying crontab. Jobby can handle logging, locking, error emails and more.",
+        "tags":[
+            "cron"
+        ]
+    },
+    {
+        "title":"jquery-cron",
+        "url":"http://shawnchin.github.io/jquery-cron/",
+        "language":"javascript",
+        "description":"jquery-cron is a jQuery plugin for presenting a simplified interface for users to specify cron entries.",
+        "tags":[
+            "jQuery",
+            "cron"
+        ]
+    }
+]
