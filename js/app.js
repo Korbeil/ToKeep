@@ -4,6 +4,7 @@
 
 var keepApp = angular.module('keepApp', [
     'ngRoute',
+
     'keepFilters',
     'keepController'
 ]);

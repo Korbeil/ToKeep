@@ -23,23 +23,12 @@ keepController.controller('KeepListCtrl', ['$scope', '$http',
             }
             $scope.taglist = tags;
 
-            // seeding langlist
-            var langs = [];
-            for(var element in data) {
-                var c = data[element];
-                if(c.language && langs.indexOf(c.language) == -1) {
-                    langs.push(c.language);
-                }
-            }
-            $scope.langlist = langs;
-
         });
 
-        $scope.addSomethingToKeep = function(title, url, lang, desc, tag) {
+        $scope.addSomethingToKeep = function(title, url, desc, tag) {
             var struct = {
                 "title":title,
                 "url":url,
-                "language":lang,
                 "description":desc,
                 "tags":tag
             };

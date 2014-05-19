@@ -27,21 +27,4 @@ angular.module('keepFilters', [])
             return r;
         }
     };
-})
-.filter('language', function() {
-    return function(items, field) {
-        if(field === undefined) {
-            return items;
-        } else {
-            var r = [];
-            for(var i in items) {
-                var current = items[i];
-
-                if(current.language.indexOf(field) > -1 && r.indexOf(current.language) == -1) {
-                    r.push(current);
-                }
-            }
-            return r;
-        }
-    };
 });
