@@ -172,6 +172,7 @@
             valueField: 'name',
             labelField: 'name',
             sortField: 'name',
+            searchField: 'name',
             options: taglist
         });
 
@@ -186,36 +187,40 @@
             valueField: 'name',
             labelField: 'name',
             sortField: 'name',
+            searchField: 'name',
             options: taglist
         });
 
         for(var i in keeplist) {
             var keep = keeplist[i];
             var el = $('#edit-tag-'+i);
-            var instance = el[0].selectize;
+            if(el[0] !== undefined) {
+                var instance = el[0].selectize;
 
-            el.selectize({
-                plugins: ['remove_button'],
-                create: function(input) {
-                    return {
-                        name: input
+                el.selectize({
+                    plugins: ['remove_button'],
+                    create: function(input) {
+                        return {
+                            name: input
+                        }
+                    },
+                    maxItems: null,
+                    valueField: 'name',
+                    labelField: 'name',
+                    sortField: 'name',
+                    searchField: 'name',
+                    options: taglist
+                });
+
+                for(var j in keep.tags) {
+                    var tag = keep.tags[j];
+                    if(instance !== undefined) {
+                        instance.addItem(tag);
                     }
-                },
-                maxItems: null,
-                valueField: 'name',
-                labelField: 'name',
-                sortField: 'name',
-                options: taglist
-            });
-
-            for(var j in keep.tags) {
-                var tag = keep.tags[j];
-                if(instance !== undefined) {
-                    instance.addItem(tag);
                 }
-            }
-            if(instance !== undefined) {
-                instance.refreshItems();
+                if(instance !== undefined) {
+                    instance.refreshItems();
+                }
             }
         }
     }
